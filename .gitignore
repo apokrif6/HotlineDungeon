@@ -49,6 +49,10 @@
 SourceArt/**/*.png
 SourceArt/**/*.tga
 
+# Binaries
+Binaries/Win64/HotlineDungeonEditor.target
+Binaries/Win64/UE4Editor.modules
+
 # Builds
 Build/*
 
