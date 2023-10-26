@@ -37,6 +37,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Combat)
 	class UCombatComponent* CombatComponent;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Combat)
+	class UAttributesComponent* AttributesComponent;
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Movement, Meta = (ClampMin = 600))
 	float SprintSpeed = 1200.f;
 
