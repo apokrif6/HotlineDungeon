@@ -5,6 +5,9 @@
 .vs/
 .vsconfig
 
+Binaries/Win64/UE4Editor-HotlineDungeon-*.pdb
+Binaries/Win64/UE4Editor-HotlineDungeon-*.dll
+
 # Compiled Object files
 *.slo
 *.lo

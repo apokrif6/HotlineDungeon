@@ -11,8 +11,6 @@ class AHotlineDungeonCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-	void Attack();
-
 public:
 	AHotlineDungeonCharacter();
 
@@ -24,6 +22,11 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
 
+	/** Returns CameraBoom subobject **/
+	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
+	/** Returns FollowCamera subobject **/
+	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 	class USpringArmComponent* CameraBoom;
@@ -34,8 +37,14 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Combat)
 	class UCombatComponent* CombatComponent;
 
-	/** Resets HMD orientation in VR. */
-	void OnResetVR();
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Combat)
+	class UAttributesComponent* AttributesComponent;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Movement, Meta = (ClampMin = 600))
+	float SprintSpeed = 1200.f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Movement)
+	UAnimMontage* DodgeAnimMontage;
 
 	/** Called for forwards/backward input */
 	void MoveForward(float Value);
@@ -61,14 +70,16 @@ protected:
 	/** Handler for when a touch input stops. */
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
 
-protected:
-	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	// End of APawn interface
 
-public:
-	/** Returns CameraBoom subobject **/
-	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
-	/** Returns FollowCamera subobject **/
-	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+private:
+	void Attack();
+
+	void StartSprint();
+
+	void EndSprint();
+
+	void Dodge();
+
+	float DefaultSpeed = 600.f;
 };
